@@ -2,6 +2,7 @@ package hu.unideb.inf.lev.SpringJavaFX;
 
 import hu.unideb.inf.lev.SpringJavaFX.model.Person;
 import hu.unideb.inf.lev.SpringJavaFX.model.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class SpringJavaFxApplication implements CommandLineRunner {
 
+	@Autowired
 	PersonRepository pdr;
 
 	public static void main(String[] args) {
@@ -26,5 +28,6 @@ public class SpringJavaFxApplication implements CommandLineRunner {
 
 		System.out.println(p);
 		pdr.save(p);
+		System.out.println("db -> " + pdr.findByName("Ödön"));
 	}
 }
