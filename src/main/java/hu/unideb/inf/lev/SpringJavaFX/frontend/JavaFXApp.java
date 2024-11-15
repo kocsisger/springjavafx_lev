@@ -1,6 +1,7 @@
 package hu.unideb.inf.lev.SpringJavaFX.frontend;
 
 import hu.unideb.inf.lev.SpringJavaFX.SpringJavaFxApplication;
+import hu.unideb.inf.lev.SpringJavaFX.SpringManager;
 import hu.unideb.inf.lev.SpringJavaFX.model.PersonRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 public class JavaFXApp extends Application {
-    ConfigurableApplicationContext ctx;
+
+    static Manager manager = new SpringManager();
+
     @Override
     public void start(Stage stage) throws Exception {
         System.out.println("JavaFX APP is running...!!!");
@@ -19,14 +22,13 @@ public class JavaFXApp extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        ctx = SpringApplication.run(SpringJavaFxApplication.class);
-        PersonRepository personRepo = (PersonRepository) ctx.getBean(PersonRepository.class);
-        System.out.println("JavaFX -> " + personRepo.findByName("Ödön"));
+        manager.start();
+        System.out.println("JavaFX -> " + manager.load());
     }
 
     @Override
     public void stop() throws Exception {
-        ctx.close();
+        manager.stop();
         super.stop();
     }
 }
